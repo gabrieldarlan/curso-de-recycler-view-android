@@ -52,7 +52,7 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
 
         public NotaViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            //descricao
             titulo = itemView.findViewById(R.id.item_nota_titulo);
             descricao = itemView.findViewById(R.id.item_nota_descricao);
 

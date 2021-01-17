@@ -14,9 +14,9 @@ import java.util.List;
 import br.com.gdarlan.ceep.R;
 import br.com.gdarlan.ceep.model.Nota;
 
-public class ListaNotasAdapter extends RecyclerView.Adapter {
-    private List<Nota> notas;
-    private Context context;
+public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.NotaViewHolder> {
+    private final List<Nota> notas;
+    private final Context context;
 
     public ListaNotasAdapter(Context context, List<Nota> notas) {
         this.notas = notas;
@@ -25,22 +25,18 @@ public class ListaNotasAdapter extends RecyclerView.Adapter {
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ListaNotasAdapter.NotaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final View viewCriada = LayoutInflater.from(context).inflate(R.layout.item_nota,
                 parent,
                 false);
-
 
         return new NotaViewHolder(viewCriada);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ListaNotasAdapter.NotaViewHolder holder, int position) {
         final Nota nota = notas.get(position);
-        final TextView titulo = holder.itemView.findViewById(R.id.item_nota_titulo);
-        titulo.setText(nota.getTitulo());
-        final TextView descricao = holder.itemView.findViewById(R.id.item_nota_descricao);
-        descricao.setText(nota.getDescricao());
+        holder.vincula(nota);
 
     }
 
@@ -51,9 +47,24 @@ public class ListaNotasAdapter extends RecyclerView.Adapter {
 
     class NotaViewHolder extends RecyclerView.ViewHolder {
 
+        private final TextView titulo;
+        private final TextView descricao;
+
         public NotaViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            titulo = itemView.findViewById(R.id.item_nota_titulo);
+            descricao = itemView.findViewById(R.id.item_nota_descricao);
+
+        }
+
+        public void vincula(Nota nota) {
+            preencheCampos(nota);
+        }
+
+        private void preencheCampos(Nota nota) {
+            titulo.setText(nota.getTitulo());
+            descricao.setText(nota.getDescricao());
         }
     }
 

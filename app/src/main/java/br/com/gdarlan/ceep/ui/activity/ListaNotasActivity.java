@@ -1,17 +1,17 @@
 package br.com.gdarlan.ceep.ui.activity;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import br.com.gdarlan.ceep.R;
 import br.com.gdarlan.ceep.dao.NotaDAO;
 import br.com.gdarlan.ceep.model.Nota;
-import br.com.gdarlan.ceep.ui.adapter.ListaNotasAdapter;
+import br.com.gdarlan.ceep.ui.recyclerview.adapter.ListaNotasAdapter;
 
 public class ListaNotasActivity extends AppCompatActivity {
 
@@ -23,7 +23,7 @@ public class ListaNotasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_notas);
         setTitle(TITULO_APPBAR);
 
-        final ListView listaNotas = findViewById(R.id.listView);
+        final RecyclerView listaNotas = findViewById(R.id.lista_notas_recyclerview);
 
         final NotaDAO dao = new NotaDAO();
         for (int i = 1; i <= 10000; i++) {
@@ -32,6 +32,9 @@ public class ListaNotasActivity extends AppCompatActivity {
         final List<Nota> todasNotas = dao.todos();
 
         listaNotas.setAdapter(new ListaNotasAdapter(this, todasNotas));
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        listaNotas.setLayoutManager(layoutManager);
+
     }
 
 }
